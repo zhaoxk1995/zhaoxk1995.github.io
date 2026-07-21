@@ -1,24 +1,46 @@
-let current="en";
+let currentLang = "en";
 
 
-function switchLang(lang){
+function switchLang(lang) {
+
+    currentLang = lang;
 
 
-current=lang;
+    const elements = document.querySelectorAll("[data-en]");
 
 
-document.querySelectorAll("[data-en]")
-.forEach(el=>{
+    elements.forEach(element => {
+
+        const text = element.getAttribute(
+            "data-" + lang
+        );
 
 
-el.innerHTML=
-el.getAttribute(
-"data-"+lang
-);
+        if (text) {
+
+            element.innerHTML = text;
+
+        }
+
+    });
 
 
-});
+    // 修改网页语言标识
+    document.documentElement.lang = lang;
 
+
+    // 修改网页标题
+    if (lang === "zh") {
+
+        document.title =
+            "赵小坤 | 工业物联网软件工程师";
+
+    } else {
+
+        document.title =
+            "Zhao Xiaokun | Industrial IoT Software Engineer";
+
+    }
 
 }
 
@@ -26,5 +48,12 @@ el.getAttribute(
 
 
 
+// 页面加载默认英文
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-switchLang("en");
+        switchLang(currentLang);
+
+    }
+);
